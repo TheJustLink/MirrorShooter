@@ -116,6 +116,8 @@ namespace Mirror
         // scene loading
         public static bool isLoadingScene;
 
+        public static event Action<NetworkIdentity> PlayerAdded;
+
         // initialization //////////////////////////////////////////////////////
         static void AddTransportHandlers()
         {
@@ -965,6 +967,8 @@ namespace Mirror
             if (ready && connection != null)
             {
                 connection.identity = identity;
+
+                PlayerAdded?.Invoke(identity);
             }
             else Debug.LogWarning("NetworkClient can't AddPlayer before being ready. Please call NetworkClient.Ready() first. Clients are considered ready after joining the game world.");
         }

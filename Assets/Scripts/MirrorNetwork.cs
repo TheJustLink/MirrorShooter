@@ -2,6 +2,8 @@
 
 using Mirror;
 
+using UnityEngine;
+
 namespace MirrorShooter
 {
     class MirrorNetwork : NetworkManager
@@ -16,7 +18,7 @@ namespace MirrorShooter
         
         private void OnPlayerAdded(NetworkIdentity identity)
         {
-            if (identity.isLocalPlayer == false) return;
+            Debug.Log(identity);
 
             Connected?.Invoke(identity.GetComponent<Player.Player>());
         }

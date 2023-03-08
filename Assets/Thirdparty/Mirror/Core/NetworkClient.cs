@@ -967,8 +967,6 @@ namespace Mirror
             if (ready && connection != null)
             {
                 connection.identity = identity;
-
-                PlayerAdded?.Invoke(identity);
             }
             else Debug.LogWarning("NetworkClient can't AddPlayer before being ready. Please call NetworkClient.Ready() first. Clients are considered ready after joining the game world.");
         }
@@ -1397,7 +1395,10 @@ namespace Mirror
 
             // invoke OnStartLocalPlayer
             if (identity.isLocalPlayer)
+            {
                 identity.OnStartLocalPlayer();
+                PlayerAdded?.Invoke(identity);
+            }
         }
 
         // configure flags & invoke callbacks

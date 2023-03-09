@@ -1,5 +1,7 @@
 ﻿using Mirror;
 
+using MirrorShooter.Player.Health;
+
 using UnityEngine;
 
 namespace MirrorShooter.Player.Weapon.Projectiles
@@ -7,11 +9,14 @@ namespace MirrorShooter.Player.Weapon.Projectiles
     [RequireComponent(typeof(Rigidbody))]
     class Projectile : NetworkBehaviour
     {
-        [SerializeField] private float _impulse = 10f;
+        [Header("References")]
         [SerializeField] private ParticleSystem _trailParticles;
         [SerializeField] private ParticleSystem _hitParticlesPrefab;
         [SerializeField] private Collider _collider;
-        
+        [Header("Parameters")]
+        [SerializeField] private float _impulse = 10f;
+        [SerializeField] private float _damage = 30f;
+
         private void Start()
         {
             var rigidbody = GetComponent<Rigidbody>();
@@ -26,6 +31,23 @@ namespace MirrorShooter.Player.Weapon.Projectiles
             DetachTrailParticles();
             
             Destroy(gameObject);
+
+            if (isServer)
+            {
+                OnCollisionInServer(collision.gameObject);
+            }
+        }
+
+        [Server]
+        private void OnCollisionInServer(GameObject collisionWith)
+        {
+            if (collisionWith.TryGetComponent(out IDamageable damageable))
+                OnCollisionWithDamageable(damageable);
+        }
+        [Server]
+        private void OnCollisionWithDamageable(IDamageable damageable)
+        {
+            damageable.ApplyDamage(_damage);
         }
         
         public void IgnoreCollisionWith(Collider otherCollider)

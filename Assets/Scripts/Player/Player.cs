@@ -10,8 +10,15 @@ namespace MirrorShooter.Player
     {
         [SerializeField] private RigidbodyMovement _rigidbodyMovement;
         [SerializeField] private Weapon.Weapon _weapon;
+        [SerializeField] private Health.Health _health;
+        [SerializeField] private UI.ValueWithLimitView _healthView;
 
         private IButtonInput _shootInput = new EmptyButtonInput();
+
+        private void Start()
+        {
+            _healthView.Construct(_health);
+        }
 
         public void Construct(IDirectionInput<Vector3> shootDirectionInput)
         {

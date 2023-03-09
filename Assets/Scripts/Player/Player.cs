@@ -1,25 +1,32 @@
-﻿using MirrorShooter.Input.Button;
+﻿using Mirror;
+
+using MirrorShooter.Input.Button;
 using MirrorShooter.Input.Direction;
+using MirrorShooter.Movement;
 using MirrorShooter.Player.Movement;
 
 using UnityEngine;
 
 namespace MirrorShooter.Player
 {
-    class Player : MonoBehaviour
+    class Player : NetworkBehaviour
     {
+        public Health.Health Health => _health;
+
         [SerializeField] private RigidbodyMovement _rigidbodyMovement;
         [SerializeField] private Weapon.Weapon _weapon;
         [SerializeField] private Health.Health _health;
-        [SerializeField] private UI.ValueWithLimitView _healthView;
+        [SerializeField] private UI.ValueWithLimitView _healthWorldView;
+        [SerializeField] private LookAtDirection _lookAtForHealthWorldView;
 
         private IButtonInput _shootInput = new EmptyButtonInput();
-
-        private void Start()
+        
+        private void Update()
         {
-            _healthView.Construct(_health);
+            if (_shootInput.GetButtonDown())
+                _weapon.Shoot();
         }
-
+        
         public void Construct(IDirectionInput<Vector3> shootDirectionInput)
         {
             _rigidbodyMovement.Construct(new MoveDirectionInput(), new JumpButtonInput());
@@ -27,11 +34,12 @@ namespace MirrorShooter.Player
 
             _shootInput = new LeftMouseButtonInput();
         }
-
-        private void Update()
+        public void ConstructHealthWorldUIFor(Transform targetTransform)
         {
-            if (_shootInput.GetButtonDown())
-                _weapon.Shoot();
+            var directionInput = new LookToTransformDirectionInput(_healthWorldView.transform, targetTransform);
+            
+            _lookAtForHealthWorldView.Construct(directionInput);
+            _healthWorldView.Construct(_health);
         }
     }
 }

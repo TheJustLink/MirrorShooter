@@ -1,6 +1,4 @@
-﻿using System;
-
-using MirrorShooter.Values;
+﻿using MirrorShooter.Values;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +12,12 @@ namespace MirrorShooter.UI
         [SerializeField] private Gradient _colorGradient;
 
         private IValueWithLimit _valueWithLimit;
+        private Canvas _canvas;
 
         private void Awake()
         {
+            _canvas = GetComponentInParent<Canvas>();
+
             var color = _colorGradient.Evaluate(_slider.value);
             _fillImage.CrossFadeColor(color, 0f, true, true);
         }
@@ -37,6 +38,15 @@ namespace MirrorShooter.UI
 
             _valueWithLimit.Changed += OnValueWithLimitChanged;
             OnValueWithLimitChanged(valueWithLimit.Value);
+        }
+
+        public void Show()
+        {
+            _canvas.enabled = true;
+        }
+        public void Hide()
+        {
+            _canvas.enabled = false;
         }
 
         private void OnValueWithLimitChanged(float value)

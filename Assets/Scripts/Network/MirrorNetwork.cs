@@ -1,9 +1,4 @@
-﻿using System;
-using System.Security.Principal;
-
-using Mirror;
-
-using MirrorShooter.Camera;
+﻿using Mirror;
 
 using UnityEngine;
 
@@ -11,17 +6,10 @@ namespace MirrorShooter.Network
 {
     class MirrorNetwork : NetworkManager
     {
-        public event Action<Player.Player> Connected;
-        public event Action Disconnected;
+        [SerializeField] private PlayerNetworking _playerNetworking;
 
         private bool _initialized;
         
-        public override void OnClientDisconnect()
-        {
-            _initialized = false;
-            Disconnected?.Invoke();
-        }
-
         public override void Update()
         {
             base.Update();
@@ -31,7 +19,15 @@ namespace MirrorShooter.Network
             _initialized = true;
 
             var player = NetworkClient.localPlayer.GetComponent<Player.Player>();
-            Connected?.Invoke(player);
+
+            _playerNetworking.OnConnected(player);
+        }
+        
+        public override void OnClientDisconnect()
+        {
+            _initialized = false;
+            
+            _playerNetworking.OnDisconnected();
         }
     }
 }

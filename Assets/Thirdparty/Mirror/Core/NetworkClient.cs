@@ -116,8 +116,6 @@ namespace Mirror
         // scene loading
         public static bool isLoadingScene;
 
-        public static event Action<NetworkIdentity> PlayerAdded;
-
         // initialization //////////////////////////////////////////////////////
         static void AddTransportHandlers()
         {
@@ -1395,10 +1393,7 @@ namespace Mirror
 
             // invoke OnStartLocalPlayer
             if (identity.isLocalPlayer)
-            {
                 identity.OnStartLocalPlayer();
-                PlayerAdded?.Invoke(identity);
-            }
         }
 
         // configure flags & invoke callbacks

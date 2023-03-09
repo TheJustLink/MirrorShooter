@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 3597917100576734136}
   - component: {fileID: 6489017780512687225}
   - component: {fileID: 128790939837024167}
+  - component: {fileID: 5590710817664099603}
   m_Layer: 5
   m_Name: HealthBarCanvas
   m_TagString: Untagged
@@ -356,6 +357,18 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+--- !u!114 &5590710817664099603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431573030739725833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8731bfeb82f874ca67f339b5e94e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6758554290189041796
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,10 +529,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d7f9d62f9f09747aa6f341c617dee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
   _rigidbodyMovement: {fileID: 7719975787305421709}
   _weapon: {fileID: 8711086426667555712}
   _health: {fileID: 7272312703286244741}
-  _healthView: {fileID: 128790939837024167}
+  _healthWorldView: {fileID: 128790939837024167}
+  _lookAtForHealthWorldView: {fileID: 5590710817664099603}
 --- !u!114 &428302034916630329
 MonoBehaviour:
   m_ObjectHideFlags: 0

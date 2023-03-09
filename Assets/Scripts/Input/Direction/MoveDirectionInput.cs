@@ -2,7 +2,7 @@
 
 namespace MirrorShooter.Input.Direction
 {
-    class MoveDirectionInput : CompositeDirectionInput
+    class MoveDirectionInput : CompositeVector2DirectionInput
     {
         private const string HorizontalAxis = "Horizontal";
         private const string VerticalAxis = "Vertical";

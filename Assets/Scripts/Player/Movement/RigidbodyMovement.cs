@@ -16,10 +16,10 @@ namespace MirrorShooter.Player.Movement
         private Rigidbody _rigidbody;
         private Vector3 _inputDirection;
 
-        private IDirectionInput _moveInput = new EmptyDirectionInput();
+        private IDirectionInput<Vector2> _moveInput = new EmptyDirectionInput<Vector2>();
         private IButtonInput _jumpInput = new EmptyButtonInput();
 
-        public void Construct(IDirectionInput directionInput, IButtonInput jumpInput)
+        public void Construct(IDirectionInput<Vector2> directionInput, IButtonInput jumpInput)
         {
             _moveInput = directionInput;
             _jumpInput = jumpInput;

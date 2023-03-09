@@ -2,7 +2,7 @@
 
 namespace MirrorShooter.Input.Direction
 {
-    class MouseDirectionInput : CompositeDirectionInput
+    class MouseDirectionInput : CompositeVector2DirectionInput
     {
         private const string MouseXAxisName = "Mouse X";
         private const string MouseYAxisName = "Mouse Y";

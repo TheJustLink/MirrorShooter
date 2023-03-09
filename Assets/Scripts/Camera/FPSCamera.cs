@@ -9,13 +9,13 @@ namespace MirrorShooter.Camera
         [SerializeField] private float _sensitivity = 50f;
         [SerializeField] private Vector3 _offset;
 
-        private IDirectionInput _directionInput;
+        private IDirectionInput<Vector2> _directionInput;
         private Transform _targetTransform;
 
         private float _rotationX;
         private float _rotationY;
         
-        public void Construct(IDirectionInput directionInput, Transform targetTransformTransform)
+        public void Construct(IDirectionInput<Vector2> directionInput, Transform targetTransformTransform)
         {
             _directionInput = directionInput;
             _targetTransform = targetTransformTransform;

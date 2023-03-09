@@ -2,9 +2,9 @@
 
 namespace MirrorShooter.Input.Direction
 {
-    interface IDirectionInput
+    interface IDirectionInput<out T> where T : struct
     {
-        Vector2 GetDirection();
-        Vector2 GetDirectionRaw();
+        T GetDirection();
+        T GetDirectionRaw();
     }
 }

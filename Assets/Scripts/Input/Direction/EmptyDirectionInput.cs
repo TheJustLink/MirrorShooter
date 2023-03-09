@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-
-namespace MirrorShooter.Input.Direction
+﻿namespace MirrorShooter.Input.Direction
 {
-    class EmptyDirectionInput : IDirectionInput
+    class EmptyDirectionInput<T> : IDirectionInput<T> where T : struct
     {
-        public Vector2 GetDirection() => Vector2.zero;
-        public Vector2 GetDirectionRaw() => Vector2.zero;
+        public T GetDirection() => default;
+        public T GetDirectionRaw() => default;
     }
 }
